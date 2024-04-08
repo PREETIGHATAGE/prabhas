@@ -1,0 +1,12 @@
+pipeline{
+    agent any
+    stages {
+  stage('ContinuousDownload') {
+    steps {
+      git 'https://github.com/Shrinivasc/maven.git'
+    }
+  }
+
+}
+
+}

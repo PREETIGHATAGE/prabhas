@@ -1,0 +1,16 @@
+node('built-in') {
+    stage('ContinuousDownload') {
+    git 'https://github.com/Shrinivasc/maven.git'
+}
+stage('ContinuousBuild') {
+    sh 'mvn package'
+}
+stage('ContinuousDeployment') {
+    deploy adapters: [tomcat9(credentialsId: '6c6129b6-19e7-410d-88e9-8ccf2b838085', path: '', 
+    url: 'http://172.31.27.39:8080')], contextPath: 'testapp', war: '**/*.war'
+}
+stage('ContinuousTesting') {
+    git 'https://github.com/Shrinivasc/AutomationTesting.git'
+    sh 'java -jar  /home/ubuntu/.jenkins/workspace/Scripted/testing.jar'
+}
+}
